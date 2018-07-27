@@ -16,10 +16,11 @@ func loadAwsCredential() (access_key_id string, secret_access_key string, region
   if err != nil {
     log.Fatal("Error laoding .env file")
   }
-  access_key_id = os.Getenv("S3_BUCKET")
-  secret_access_key = os.Getenv("AWS_ACCESS_KEY_ID")
-  region = os.Getenv("AWS_SECRET_ACCESS_KEY")
-  bucket = os.Getenv("ap-southeast-1")
+
+  bucket = os.Getenv("S3_BUCKET")
+  access_key_id = os.Getenv("AWS_ACCESS_KEY_ID")
+  secret_access_key = os.Getenv("AWS_SECRET_ACCESS_KEY")
+  region = os.Getenv("ap-southeast-1")
 
   return
 }
