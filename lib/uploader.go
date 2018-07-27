@@ -17,7 +17,6 @@ func upload(filepath string) {
   secret_access_key := ""
   region := "ap-southeast-1"
   bucket := ""
-
   // awsRegion := os.Getenv(region)
   // s3Bucket := os.Getenv(bucket)
   // awsID := os.Getenv(access_key_id)
