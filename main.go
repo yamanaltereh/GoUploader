@@ -2,7 +2,7 @@ package main
 
 import (
     "fmt"
-    "./lib/uploader"
+    "uploader"
     "time"
     "log"
     "net/http"
@@ -11,9 +11,9 @@ import (
 func main() {
   fmt.Println("start main")
   http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "GoUploader Service is up, %q", time.Now())
+   fmt.Fprintf(w, "GoUploader Service is up, %q", time.Now())
   })
 
   log.Fatal(http.ListenAndServe(":8080", nil))
-  upload("/Users/yaman/Desktop/P_20170919_094831.jpg")
+  uploader.Upload("/Users/yaman/Desktop/P_20170919_094831.jpg")
 }
