@@ -30,10 +30,7 @@ func Upload(filepath string) {
 
   access_key_id, secret_access_key, region, bucket := loadAwsCredential()
 
-  // awsRegion := os.Getenv(region)
-  // s3Bucket := os.Getenv(bucket)
-  // awsID := os.Getenv(access_key_id)
-  // awsSecretKey := os.Getenv(secret_access_key)
+
   awsRegion := region
   s3Bucket := bucket
   awsID := access_key_id
