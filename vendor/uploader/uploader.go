@@ -2,21 +2,32 @@ package uploader
 
 import (
   "fmt"
-	"os"
-	"github.com/joho/godotenv"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
+  "os"
+  dotenv "github.com/joho/godotenv"
+  "github.com/aws/aws-sdk-go/aws/session"
+  "github.com/aws/aws-sdk-go/aws"
+  "github.com/aws/aws-sdk-go/aws/credentials"
   "github.com/aws/aws-sdk-go/service/s3/s3manager"
+  "log"
 )
 
-func upload(filepath string) {
+func loadAwsCredential() (access_key_id string, secret_access_key string, region string, bucket string) {
+  err := dotenv.Load()
+  if err != nil {
+    log.Fatal("Error laoding .env file")
+  }
+  access_key_id = os.Getenv("S3_BUCKET")
+  secret_access_key = os.Getenv("AWS_ACCESS_KEY_ID")
+  region = os.Getenv("AWS_SECRET_ACCESS_KEY")
+  bucket = os.Getenv("ap-southeast-1")
+
+  return
+}
+
+func Upload(filepath string) {
   fmt.Println("Uploader")
 
-  access_key_id := "AKIAJLBGJEHGNKSZTHBA"
-  secret_access_key := "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"
-  region := "ap-southeast-1"
-  bucket := "ada-staging"
+  access_key_id, secret_access_key, region, bucket := loadAwsCredential()
 
   // awsRegion := os.Getenv(region)
   // s3Bucket := os.Getenv(bucket)
