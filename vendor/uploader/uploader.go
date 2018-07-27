@@ -28,13 +28,8 @@ func loadAwsCredential() (access_key_id string, secret_access_key string, region
 func Upload(filepath string) {
   fmt.Println("Uploader")
 
-  access_key_id, secret_access_key, region, bucket := loadAwsCredential()
+  awsID, awsSecretKey, awsRegion, s3Bucket := loadAwsCredential()
 
-
-  awsRegion := region
-  s3Bucket := bucket
-  awsID := access_key_id
-  awsSecretKey := secret_access_key
   sess, err := session.NewSession(&aws.Config{
    Region:      aws.String(awsRegion),
    Credentials: credentials.NewStaticCredentials(awsID, awsSecretKey, ""),
