@@ -90,7 +90,7 @@ func Upload(filepath string, filename string, file_url string) {
 
   svc := s3manager.NewUploader(sess)
   fmt.Println("Uploading file to S3...")
-  prefix := os.Getenv("prefix") + filename
+  prefix := os.Getenv("prefix") + " / " + filename
   result, err := svc.Upload(&s3manager.UploadInput{
     Bucket: aws.String(s3Bucket),
     Key:    aws.String(prefix),
