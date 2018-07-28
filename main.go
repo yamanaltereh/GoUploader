@@ -33,6 +33,46 @@ func GetHandler(w http.ResponseWriter, r *http.Request) {
   w.Write(jsonBody)
 }
 
+// PostHandler converts post request body to string
+func PostHandler(w http.ResponseWriter, r *http.Request) {
+  if r.Method == "POST" {
+    r.ParseMultipartForm(32 << 20)
+
+    file, handler, err := r.FormFile("file")
+    file_name := handler.Filename
+
+    if err != nil {
+      fmt.Println(err)
+      return
+    }
+
+    defer file.Close()
+
+    fmt.Fprintf(w, "%v", handler.Header)
+    file_path := "./tmp/" + file_name
+    f, err := os.OpenFile(file_path, os.O_WRONLY|os.O_CREATE, 0666)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    defer f.Close()
+    io.Copy(f, file)
+
+    // response := map[string]string{"filename": file_name}
+    // json_response, _ := json.Marshal(response)
+
+    // w.Write(json_response)
+
+    var file_url string
+    uploader.Upload(file_path, file_name, file_url)
+
+    jsonBody, err := json.Marshal(file_url)
+    w.Write(jsonBody)
+  } else {
+    http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+  }
+}
+
 func init() {
   log.SetFlags(log.Lmicroseconds | log.Lshortfile)
   flag.Parse()
